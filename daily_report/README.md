@@ -50,6 +50,11 @@ research_protocol.md  →  reports/<date>.json  →  build_report.py  →  repor
          "returns": {"daily": "+3bp", "wtd": "+6bp", "mtd": "-9bp", "ytd": "+14bp"},
          "source": {"name": "Reuters", "url": "https://www.reuters.com/..."}}
       ],
+      // equities key_levels additionally require "currency" and "hedged"
+      // (see sources.yaml's equities.watchlist for the canonical value per
+      // instrument — build_report.py rejects a mismatch):
+      // {"metric": "MSCI Emerging Markets", "value": "1,142.7", "currency": "USD",
+      //  "hedged": false, "returns": {...}, "source": {...}}
       "themes": [
         {
           "headline": "10Y yield rises 8bp on hot CPI print",
@@ -77,6 +82,18 @@ is for numbers specific to a story. Coverage of the watchlist, and
 completeness of the four return periods per entry, are both validated
 (`checks.min_watchlist_coverage_pct`); thin coverage flags the section as
 degraded rather than failing silently.
+
+**Currency and hedging (equities only).** MSCI's global/regional aggregates
+(ACWI IMI, World, EM) are canonically USD, unhedged — that's the standard
+cross-country comparison series and what's reported unless a specific
+hedged mandate calls for otherwise. Single-market indices (STOXX 600, FTSE
+100, Nikkei 225, Hang Seng, CSI 300) are reported in local currency, as
+conventionally quoted by the exchange/press — they are never silently
+converted to USD. Every equities `key_levels` entry must carry `currency`
+and `hedged` matching the canonical value defined in `sources.yaml`'s
+`equities.watchlist`; a mismatch (e.g. reporting MSCI EM in EUR, or a local
+index with `hedged: true`) fails validation rather than rendering
+ambiguous, mixed-currency numbers side by side.
 
 Category keys currently defined: `macro_rates`, `equities`, `credit`,
 `private_markets`, `fx_commodities`.

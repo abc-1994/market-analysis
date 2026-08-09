@@ -36,6 +36,16 @@ each day.
    required at 100%) but don't skip the pass — thin coverage gets flagged
    in the report so it's visible, not silent.
 
+   **Equities specifically:** use the `currency` and `hedged` value defined
+   for each instrument in `sources.yaml`'s `equities.watchlist` — don't
+   pick whatever currency the first source you find happens to quote. MSCI
+   ACWI IMI/World/EM are USD, unhedged. STOXX 600/FTSE 100/Nikkei
+   225/Hang Seng/CSI 300 are local currency (EUR/GBP/JPY/HKD/CNY
+   respectively) with `hedged: null`. Pulling, say, an MSCI EM figure from
+   a source quoting local-currency or hedged terms without converting (or
+   flagging it) is exactly the kind of silent inconsistency the validator
+   is there to catch — don't work around it, get the right series.
+
 4. **Identify the top 2-4 genuinely material themes** per category — not
    every headline. A theme belongs in the report if it plausibly affects
    portfolio positioning (rates moves, spread widening/tightening, major

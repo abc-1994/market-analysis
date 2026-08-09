@@ -31,6 +31,7 @@
   table.levels { border-collapse: collapse; font-size: 0.85rem; margin: 0.5rem 0; font-family: -apple-system, sans-serif; }
   table.levels th, table.levels td { border: 1px solid var(--border); padding: 0.25rem 0.6rem; text-align: left; }
   .table-scroll { overflow-x: auto; }
+  .ccy-note { font-size: 0.75rem; color: var(--muted); font-family: -apple-system, sans-serif; margin-top: 0.3rem; }
   .watch { margin-top: 0.8rem; font-size: 0.9rem; background: color-mix(in srgb, var(--accent) 8%, transparent);
             border-left: 3px solid var(--accent); padding: 0.5rem 0.8rem; }
   .degraded-badge { background: var(--warn-bg); border: 1px solid var(--warn-border); border-radius: 4px;
@@ -55,6 +56,7 @@
       <tbody><tr><td>US 2Y Treasury</td><td>4.02%</td><td>+5bp</td><td>+9bp</td><td>+2bp</td><td>-18bp</td></tr><tr><td>US 10Y Treasury</td><td>4.28%</td><td>+8bp</td><td>+11bp</td><td>-3bp</td><td>+22bp</td></tr><tr><td>US 30Y Treasury</td><td>4.51%</td><td>+6bp</td><td>+10bp</td><td>-2bp</td><td>+31bp</td></tr><tr><td>Germany 10Y Bund</td><td>2.51%</td><td>+3bp</td><td>+6bp</td><td>-9bp</td><td>+14bp</td></tr><tr><td>UK 10Y Gilt</td><td>4.63%</td><td>+4bp</td><td>+7bp</td><td>-1bp</td><td>+38bp</td></tr><tr><td>Japan 10Y JGB</td><td>1.08%</td><td>+1bp</td><td>+2bp</td><td>+5bp</td><td>+19bp</td></tr><tr><td>China 10Y CGB</td><td>1.72%</td><td>-2bp</td><td>-4bp</td><td>-11bp</td><td>-27bp</td></tr></tbody>
     </table>
     </div>
+    
       
     <div class="theme">
       <h3>10Y Treasury yield rises 8bp on hotter-than-expected core CPI</h3>
@@ -80,10 +82,11 @@
       
     <div class="table-scroll">
     <table class="levels key-levels">
-      <thead><tr><th>Metric</th><th>Level</th><th>Daily</th><th>WTD</th><th>MTD</th><th>YTD</th></tr></thead>
-      <tbody><tr><td>S&amp;P 500</td><td>5,842</td><td>-0.6%</td><td>-0.9%</td><td>+1.2%</td><td>+14.3%</td></tr><tr><td>Nasdaq 100</td><td>20,410</td><td>-0.2%</td><td>-0.5%</td><td>+2.1%</td><td>+19.8%</td></tr><tr><td>MSCI ACWI IMI</td><td>812.4</td><td>-0.4%</td><td>-0.6%</td><td>+1.0%</td><td>+12.7%</td></tr><tr><td>MSCI World</td><td>3,845.1</td><td>-0.5%</td><td>-0.7%</td><td>+0.9%</td><td>+13.1%</td></tr><tr><td>MSCI Emerging Markets</td><td>1,142.7</td><td>+0.3%</td><td>+0.4%</td><td>+1.8%</td><td>+9.4%</td></tr><tr><td>STOXX Europe 600</td><td>521.6</td><td>-0.3%</td><td>-0.4%</td><td>+0.6%</td><td>+8.9%</td></tr><tr><td>FTSE 100</td><td>8,312</td><td>-0.1%</td><td>-0.2%</td><td>+0.8%</td><td>+7.6%</td></tr><tr><td>Nikkei 225</td><td>39,904</td><td>+0.5%</td><td>+1.1%</td><td>+2.4%</td><td>+11.2%</td></tr><tr><td>Hang Seng</td><td>18,220</td><td>+0.8%</td><td>+1.6%</td><td>+3.2%</td><td>+6.5%</td></tr><tr><td>CSI 300</td><td>3,588</td><td>+0.6%</td><td>+1.3%</td><td>+2.9%</td><td>+5.1%</td></tr></tbody>
+      <thead><tr><th>Metric</th><th>Level</th><th>Ccy</th><th>Hedge</th><th>Daily</th><th>WTD</th><th>MTD</th><th>YTD</th></tr></thead>
+      <tbody><tr><td>S&amp;P 500</td><td>5,842</td><td>USD</td><td>—</td><td>-0.6%</td><td>-0.9%</td><td>+1.2%</td><td>+14.3%</td></tr><tr><td>Nasdaq 100</td><td>20,410</td><td>USD</td><td>—</td><td>-0.2%</td><td>-0.5%</td><td>+2.1%</td><td>+19.8%</td></tr><tr><td>MSCI ACWI IMI</td><td>812.4</td><td>USD</td><td>Unhedged</td><td>-0.4%</td><td>-0.6%</td><td>+1.0%</td><td>+12.7%</td></tr><tr><td>MSCI World</td><td>3,845.1</td><td>USD</td><td>Unhedged</td><td>-0.5%</td><td>-0.7%</td><td>+0.9%</td><td>+13.1%</td></tr><tr><td>MSCI Emerging Markets</td><td>1,142.7</td><td>USD</td><td>Unhedged</td><td>+0.3%</td><td>+0.4%</td><td>+1.8%</td><td>+9.4%</td></tr><tr><td>STOXX Europe 600</td><td>521.6</td><td>EUR</td><td>—</td><td>-0.3%</td><td>-0.4%</td><td>+0.6%</td><td>+8.9%</td></tr><tr><td>FTSE 100</td><td>8,312</td><td>GBP</td><td>—</td><td>-0.1%</td><td>-0.2%</td><td>+0.8%</td><td>+7.6%</td></tr><tr><td>Nikkei 225</td><td>39,904</td><td>JPY</td><td>—</td><td>+0.5%</td><td>+1.1%</td><td>+2.4%</td><td>+11.2%</td></tr><tr><td>Hang Seng</td><td>18,220</td><td>HKD</td><td>—</td><td>+0.8%</td><td>+1.6%</td><td>+3.2%</td><td>+6.5%</td></tr><tr><td>CSI 300</td><td>3,588</td><td>CNY</td><td>—</td><td>+0.6%</td><td>+1.3%</td><td>+2.9%</td><td>+5.1%</td></tr></tbody>
     </table>
     </div>
+    <p class="ccy-note">Ccy = quoting currency; USD entries are MSCI's standard cross-country series, local-currency entries are single-market indices reported as conventionally quoted by the exchange/press — do not compare returns across currencies at face value.</p>
       
     <div class="theme">
       <h3>S&amp;P 500 slips 0.6% as rate-sensitive sectors lag</h3>
@@ -143,6 +146,7 @@
       <tbody><tr><td>DXY (Dollar Index)</td><td>104.3</td><td>+0.4%</td><td>+0.6%</td><td>-0.8%</td><td>-2.1%</td></tr><tr><td>EUR/USD</td><td>1.0842</td><td>-0.4%</td><td>-0.5%</td><td>+0.7%</td><td>+1.9%</td></tr><tr><td>USD/JPY</td><td>152.30</td><td>+0.5%</td><td>+0.8%</td><td>+1.4%</td><td>+5.2%</td></tr><tr><td>GBP/USD</td><td>1.2715</td><td>-0.3%</td><td>-0.4%</td><td>+0.5%</td><td>+2.6%</td></tr><tr><td>USD/CNY</td><td>7.245</td><td>-0.1%</td><td>-0.2%</td><td>-0.3%</td><td>-0.9%</td></tr><tr><td>USD/CHF</td><td>0.8821</td><td>+0.2%</td><td>+0.3%</td><td>-0.6%</td><td>-3.4%</td></tr><tr><td>AUD/USD</td><td>0.6512</td><td>-0.2%</td><td>-0.3%</td><td>+0.9%</td><td>+3.8%</td></tr><tr><td>Gold</td><td>$2,418</td><td>-0.3%</td><td>+0.5%</td><td>+2.2%</td><td>+21.4%</td></tr><tr><td>WTI Crude</td><td>$74.80</td><td>-0.1%</td><td>-1.2%</td><td>+3.1%</td><td>+6.7%</td></tr><tr><td>Brent Crude</td><td>$78.35</td><td>-0.1%</td><td>-1.0%</td><td>+2.8%</td><td>+5.9%</td></tr></tbody>
     </table>
     </div>
+    
       
     <div class="theme">
       <h3>Dollar firms broadly on CPI-driven rate repricing</h3>

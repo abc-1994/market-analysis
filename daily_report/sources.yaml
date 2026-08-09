@@ -58,17 +58,50 @@ categories:
         domain: "lseg.com"
     # Broad, market-cap-weighted global/regional benchmarks reported daily,
     # not just whichever index is in the day's headline.
+    #
+    # currency: the base currency the level/return is quoted in. MSCI's
+    #   global/regional aggregate series (ACWI IMI, World, EM) are
+    #   canonically published in USD; single-market indices (STOXX 600,
+    #   FTSE 100, Nikkei 225, Hang Seng, CSI 300) are reported in their home
+    #   currency per standard market/press convention, not USD-converted.
+    #   Mixing these on one board without labeling currency is misleading —
+    #   don't compare a USD figure to a local-currency figure at face value.
+    # hedged: true/false only applies to the USD-denominated MSCI aggregate
+    #   series (report the standard unhedged/net series unless a hedged
+    #   series is specifically the point). null = not applicable (US
+    #   domestic indices and single-market local-currency indices have no
+    #   hedging concept — there's no cross-currency translation to hedge).
     watchlist:
-      - "MSCI ACWI IMI"
-      - "MSCI World"
-      - "MSCI Emerging Markets"
-      - "S&P 500"
-      - "Nasdaq 100"
-      - "STOXX Europe 600"
-      - "FTSE 100"
-      - "Nikkei 225"
-      - "Hang Seng"
-      - "CSI 300"
+      - metric: "MSCI ACWI IMI"
+        currency: "USD"
+        hedged: false
+      - metric: "MSCI World"
+        currency: "USD"
+        hedged: false
+      - metric: "MSCI Emerging Markets"
+        currency: "USD"
+        hedged: false
+      - metric: "S&P 500"
+        currency: "USD"
+        hedged: null
+      - metric: "Nasdaq 100"
+        currency: "USD"
+        hedged: null
+      - metric: "STOXX Europe 600"
+        currency: "EUR"
+        hedged: null
+      - metric: "FTSE 100"
+        currency: "GBP"
+        hedged: null
+      - metric: "Nikkei 225"
+        currency: "JPY"
+        hedged: null
+      - metric: "Hang Seng"
+        currency: "HKD"
+        hedged: null
+      - metric: "CSI 300"
+        currency: "CNY"
+        hedged: null
 
   credit:
     label: "Credit"

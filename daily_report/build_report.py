@@ -86,19 +86,28 @@ def validate(research, config):
 
         watchlist = cat_cfg.get("watchlist")
         if watchlist:
+            # Watchlist entries are either plain strings (metric name only)
+            # or dicts with {metric, currency, hedged} for categories where
+            # currency/hedging ambiguity actually matters (equities).
+            watchlist_names = [
+                w if isinstance(w, str) else w["metric"] for w in watchlist
+            ]
+            watchlist_specs = {w["metric"]: w for w in watchlist if isinstance(w, dict)}
+
             reported = {kl.get("metric") for kl in section.get("key_levels", [])}
-            missing = [m for m in watchlist if m not in reported]
-            coverage_pct = 100 * (len(watchlist) - len(missing)) / len(watchlist)
+            missing = [m for m in watchlist_names if m not in reported]
+            coverage_pct = 100 * (len(watchlist_names) - len(missing)) / len(watchlist_names)
             if coverage_pct < min_watchlist_pct:
                 issues.append(
                     f"key_levels coverage {coverage_pct:.0f}% of watchlist "
                     f"(< {min_watchlist_pct}%), missing: {missing}"
                 )
             for kl in section.get("key_levels", []):
+                metric = kl.get("metric")
                 dom = domain_of(kl.get("source", {}).get("url", ""))
                 if dom not in allowed_domains:
                     issues.append(
-                        f"key_levels entry {kl.get('metric')!r}: source "
+                        f"key_levels entry {metric!r}: source "
                         f"domain {dom!r} not on whitelist for {cat}"
                     )
                 returns = kl.get("returns", {})
@@ -107,9 +116,35 @@ def validate(research, config):
                 ]
                 if missing_periods:
                     issues.append(
-                        f"key_levels entry {kl.get('metric')!r}: missing "
+                        f"key_levels entry {metric!r}: missing "
                         f"returns for {missing_periods}"
                     )
+
+                spec = watchlist_specs.get(metric)
+                if spec is not None:
+                    if not kl.get("currency"):
+                        issues.append(
+                            f"key_levels entry {metric!r}: missing 'currency' "
+                            f"(expected {spec['currency']!r})"
+                        )
+                    elif kl.get("currency") != spec["currency"]:
+                        issues.append(
+                            f"key_levels entry {metric!r}: currency "
+                            f"{kl.get('currency')!r} does not match expected "
+                            f"{spec['currency']!r} — do not silently mix "
+                            f"local-currency and USD figures on one board"
+                        )
+                    if "hedged" not in kl:
+                        issues.append(
+                            f"key_levels entry {metric!r}: missing 'hedged' "
+                            f"field (use null if not applicable)"
+                        )
+                    elif spec["hedged"] is not None and kl.get("hedged") != spec["hedged"]:
+                        issues.append(
+                            f"key_levels entry {metric!r}: hedged="
+                            f"{kl.get('hedged')!r} does not match expected "
+                            f"{spec['hedged']!r}"
+                        )
 
         status = "ok" if not issues else "degraded"
         section_status[cat] = {"status": status, "issues": issues}
@@ -151,22 +186,54 @@ def render_theme(theme):
 def render_key_levels(key_levels):
     if not key_levels:
         return ""
+    # Only show Ccy/Hedged columns when the data actually carries them
+    # (currently: equities, where local-vs-USD and hedge status are
+    # genuinely ambiguous otherwise). Other categories keep the plain form.
+    show_ccy = any("currency" in kl for kl in key_levels)
+
+    def hedge_label(kl):
+        h = kl.get("hedged")
+        if h is True:
+            return "Hedged"
+        if h is False:
+            return "Unhedged"
+        return "—"  # em dash: not applicable
+
+    ccy_cols = ""
+    ccy_headers = ""
+    if show_ccy:
+        ccy_headers = "<th>Ccy</th><th>Hedge</th>"
+
     rows = "".join(
         f"<tr><td>{html.escape(kl.get('metric',''))}</td>"
         f"<td>{html.escape(kl.get('value',''))}</td>"
-        f"<td>{html.escape(kl.get('returns', {}).get('daily',''))}</td>"
+        + (
+            f"<td>{html.escape(kl.get('currency',''))}</td>"
+            f"<td>{html.escape(hedge_label(kl))}</td>"
+            if show_ccy else ""
+        )
+        + f"<td>{html.escape(kl.get('returns', {}).get('daily',''))}</td>"
         f"<td>{html.escape(kl.get('returns', {}).get('wtd',''))}</td>"
         f"<td>{html.escape(kl.get('returns', {}).get('mtd',''))}</td>"
         f"<td>{html.escape(kl.get('returns', {}).get('ytd',''))}</td></tr>"
         for kl in key_levels
     )
+    note = (
+        '<p class="ccy-note">Ccy = quoting currency; USD entries are '
+        "MSCI's standard cross-country series, local-currency entries are "
+        "single-market indices reported as conventionally quoted by the "
+        "exchange/press — do not compare returns across currencies at "
+        "face value.</p>"
+        if show_ccy else ""
+    )
     return f"""
     <div class="table-scroll">
     <table class="levels key-levels">
-      <thead><tr><th>Metric</th><th>Level</th><th>Daily</th><th>WTD</th><th>MTD</th><th>YTD</th></tr></thead>
+      <thead><tr><th>Metric</th><th>Level</th>{ccy_headers}<th>Daily</th><th>WTD</th><th>MTD</th><th>YTD</th></tr></thead>
       <tbody>{rows}</tbody>
     </table>
-    </div>"""
+    </div>
+    {note}"""
 
 
 def render_section(cat, cat_cfg, section, status):
@@ -239,6 +306,7 @@ TEMPLATE = """<!doctype html>
   table.levels {{ border-collapse: collapse; font-size: 0.85rem; margin: 0.5rem 0; font-family: -apple-system, sans-serif; }}
   table.levels th, table.levels td {{ border: 1px solid var(--border); padding: 0.25rem 0.6rem; text-align: left; }}
   .table-scroll {{ overflow-x: auto; }}
+  .ccy-note {{ font-size: 0.75rem; color: var(--muted); font-family: -apple-system, sans-serif; margin-top: 0.3rem; }}
   .watch {{ margin-top: 0.8rem; font-size: 0.9rem; background: color-mix(in srgb, var(--accent) 8%, transparent);
             border-left: 3px solid var(--accent); padding: 0.5rem 0.8rem; }}
   .degraded-badge {{ background: var(--warn-bg); border: 1px solid var(--warn-border); border-radius: 4px;
