@@ -1,0 +1,5 @@
+# Daily-generated reports are runtime output, not source — keep the repo
+# clean. example_research.* stays committed as a reference/test fixture.
+reports/*.json
+reports/*.html
+!reports/.gitkeep

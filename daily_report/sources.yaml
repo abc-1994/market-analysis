@@ -1,0 +1,81 @@
+# Locked source list for the daily market report.
+# Do not improvise sources at research time — only query domains listed here.
+# To add/remove a source, edit this file (and note the change in git history);
+# the build script cross-checks every cited source's domain against this list.
+
+categories:
+  macro_rates:
+    label: "Rates & Macro"
+    sources:
+      - name: "Federal Reserve"
+        domain: "federalreserve.gov"
+      - name: "U.S. Treasury"
+        domain: "home.treasury.gov"
+      - name: "FRED"
+        domain: "fred.stlouisfed.org"
+      - name: "Reuters"
+        domain: "reuters.com"
+      - name: "Financial Times"
+        domain: "ft.com"
+
+  equities:
+    label: "Equities"
+    sources:
+      - name: "Reuters"
+        domain: "reuters.com"
+      - name: "Bloomberg"
+        domain: "bloomberg.com"
+      - name: "WSJ"
+        domain: "wsj.com"
+      - name: "MarketWatch"
+        domain: "marketwatch.com"
+      - name: "CNBC"
+        domain: "cnbc.com"
+
+  credit:
+    label: "Credit"
+    sources:
+      - name: "Reuters"
+        domain: "reuters.com"
+      - name: "Financial Times"
+        domain: "ft.com"
+      - name: "WSJ"
+        domain: "wsj.com"
+
+  private_markets:
+    label: "Private Equity & Private Credit"
+    sources:
+      - name: "PitchBook News"
+        domain: "pitchbook.com"
+      - name: "Private Equity International"
+        domain: "privateequityinternational.com"
+      - name: "Axios Pro Rata"
+        domain: "axios.com"
+      - name: "Reuters"
+        domain: "reuters.com"
+      - name: "Financial Times"
+        domain: "ft.com"
+
+  fx_commodities:
+    label: "FX & Commodities"
+    sources:
+      - name: "Reuters"
+        domain: "reuters.com"
+      - name: "Financial Times"
+        domain: "ft.com"
+      - name: "EIA"
+        domain: "eia.gov"
+
+# Order the report sections render in. Must match category keys above.
+section_order:
+  - macro_rates
+  - equities
+  - credit
+  - private_markets
+  - fx_commodities
+
+# Quality gates applied by build_report.py
+checks:
+  min_themes_per_category: 1
+  min_sources_per_theme: 1
+  max_source_age_hours: 36

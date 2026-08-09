@@ -1,0 +1,87 @@
+{
+  "date": "2026-08-08",
+  "generated_at": "2026-08-09T08:00:00-04:00",
+  "sections": [
+    {
+      "category": "macro_rates",
+      "themes": [
+        {
+          "headline": "10Y Treasury yield rises 8bp on hotter-than-expected core CPI",
+          "summary": "Core CPI printed above consensus, reviving concerns the Fed's cutting path slows in H2. Front-end sold off in sympathy but curve bull-flattened intraday as growth-scare bids faded. For portfolios, this argues against adding duration into the print risk this week.",
+          "levels": [
+            {"metric": "10Y UST", "value": "4.28%", "change": "+8bp"},
+            {"metric": "2Y UST", "value": "4.02%", "change": "+5bp"}
+          ],
+          "sources": [
+            {"name": "Reuters", "url": "https://www.reuters.com/markets/us/treasury-yields-cpi-example", "published": "2026-08-08"}
+          ]
+        }
+      ],
+      "watch_today": ["8:30am jobless claims", "Fed speaker slate: two regional presidents"]
+    },
+    {
+      "category": "equities",
+      "themes": [
+        {
+          "headline": "S&P 500 slips 0.6% as rate-sensitive sectors lag",
+          "summary": "Utilities and real estate led losses on the higher-yield backdrop; mega-cap tech outperformed on resilient earnings guidance. Breadth was weak — decliners outpaced advancers roughly 2:1.",
+          "levels": [
+            {"metric": "S&P 500", "value": "5,842", "change": "-0.6%"},
+            {"metric": "Nasdaq 100", "value": "20,410", "change": "-0.2%"}
+          ],
+          "sources": [
+            {"name": "MarketWatch", "url": "https://www.marketwatch.com/story/stocks-close-lower-example", "published": "2026-08-08"}
+          ]
+        }
+      ],
+      "watch_today": ["Pre-market earnings from two S&P 500 names"]
+    },
+    {
+      "category": "credit",
+      "themes": [
+        {
+          "headline": "IG spreads widen 2bp, first move wider in three weeks",
+          "summary": "Modest widening tracked the rates move rather than any credit-specific catalyst; new issuance was well absorbed. HY largely unchanged, still near cycle-tight levels.",
+          "levels": [
+            {"metric": "IG OAS", "value": "84bp", "change": "+2bp"}
+          ],
+          "sources": [
+            {"name": "Reuters", "url": "https://www.reuters.com/markets/credit-spreads-example", "published": "2026-08-08"}
+          ]
+        }
+      ],
+      "watch_today": []
+    },
+    {
+      "category": "private_markets",
+      "themes": [
+        {
+          "headline": "Mid-market PE fundraising pace slows for third straight quarter",
+          "summary": "New data shows LP commitments to mid-market buyout funds down again as distributions remain sluggish; sponsors increasingly leaning on continuation vehicles to return cash. Private credit fundraising, by contrast, continues to outpace PE.",
+          "sources": [
+            {"name": "PitchBook News", "url": "https://pitchbook.com/news/articles/pe-fundraising-slows-example", "published": "2026-08-08"},
+            {"name": "Axios Pro Rata", "url": "https://www.axios.com/newsletters/axios-pro-rata-example", "published": "2026-08-08"}
+          ]
+        }
+      ],
+      "watch_today": ["Two large continuation fund closings expected to price this week"]
+    },
+    {
+      "category": "fx_commodities",
+      "themes": [
+        {
+          "headline": "Dollar firms broadly on CPI-driven rate repricing",
+          "summary": "DXY gained as markets pushed out cut expectations slightly; yen underperformed on the widening rate differential. Oil little changed ahead of tonight's inventory data.",
+          "levels": [
+            {"metric": "DXY", "value": "104.3", "change": "+0.4%"},
+            {"metric": "WTI Crude", "value": "$74.80", "change": "-0.1%"}
+          ],
+          "sources": [
+            {"name": "Reuters", "url": "https://www.reuters.com/markets/currencies/dollar-firms-example", "published": "2026-08-08"}
+          ]
+        }
+      ],
+      "watch_today": ["EIA weekly petroleum status report"]
+    }
+  ]
+}
