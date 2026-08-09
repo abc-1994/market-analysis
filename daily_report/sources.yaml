@@ -172,3 +172,14 @@ checks:
   # generous (not 1) to tolerate weekends/holidays across different
   # exchanges without false-flagging every Monday report.
   max_as_of_age_days: 4
+  # Every key_levels entry must carry a "cross_check": a second value for
+  # the same metric from a different whitelisted domain than the primary
+  # source. The two are compared numerically and flagged if they disagree
+  # by more than this tolerance — catches a wrong/stale/mis-scraped figure
+  # instead of trusting a single source blindly.
+  #   cross_check_tolerance_pct: relative tolerance for price-like values
+  #     (index levels, FX rates, commodity prices), e.g. 0.5 = 0.5%.
+  #   cross_check_tolerance_pp: absolute tolerance in percentage points for
+  #     values quoted as a percentage (yields), e.g. 0.05 = 5bp.
+  cross_check_tolerance_pct: 0.5
+  cross_check_tolerance_pp: 0.05

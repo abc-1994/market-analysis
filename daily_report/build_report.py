@@ -11,6 +11,7 @@ what a given morning's research turned up.
 """
 import html
 import json
+import re
 import sys
 from datetime import date as date_cls
 from pathlib import Path
@@ -32,6 +33,45 @@ def domain_of(url):
     return netloc[4:] if netloc.startswith("www.") else netloc
 
 
+def extract_number(s):
+    """Pull a signed float out of a value string like '4.28%', '$2,418',
+    '5,842', or '+8bp'. Returns None if nothing numeric is found."""
+    if not s:
+        return None
+    cleaned = re.sub(r"[^0-9.\-]", "", s)
+    if cleaned in ("", "-", ".", "-."):
+        return None
+    try:
+        return float(cleaned)
+    except ValueError:
+        return None
+
+
+def compare_cross_check(primary_str, check_str, tol_pct, tol_pp):
+    """Compare a primary key_level value against a second source's value.
+
+    Percentage-quoted values (yields, e.g. "4.28%") are compared in
+    absolute percentage points (two sources snapshotting a yield a few
+    minutes apart shouldn't differ by more than a handful of bp). Other
+    values (index levels, FX rates, commodity prices) are compared as a
+    relative percentage difference.
+
+    Returns (agrees: bool, diff: float, kind: 'pp'|'pct') or None if either
+    value couldn't be parsed numerically.
+    """
+    a = extract_number(primary_str)
+    b = extract_number(check_str)
+    if a is None or b is None:
+        return None
+    if "%" in primary_str:
+        diff = abs(a - b)
+        return diff <= tol_pp, diff, "pp"
+    if a == 0:
+        return b == 0, abs(a - b), "pct"
+    diff_pct = abs(a - b) / abs(a) * 100
+    return diff_pct <= tol_pct, diff_pct, "pct"
+
+
 def validate(research, config):
     """Return (warnings, section_status) — never raises on bad data.
 
@@ -43,6 +83,8 @@ def validate(research, config):
     min_sources = config["checks"]["min_sources_per_theme"]
     min_watchlist_pct = config["checks"].get("min_watchlist_coverage_pct", 0)
     max_as_of_age_days = config["checks"].get("max_as_of_age_days", 4)
+    cc_tol_pct = config["checks"].get("cross_check_tolerance_pct", 0.5)
+    cc_tol_pp = config["checks"].get("cross_check_tolerance_pp", 0.05)
 
     try:
         report_date = date_cls.fromisoformat(research.get("date", ""))
@@ -155,6 +197,48 @@ def validate(research, config):
                             f"key_levels entry {metric!r}: as_of {as_of!r} "
                             "is not a valid ISO date (YYYY-MM-DD)"
                         )
+
+                cross_check = kl.get("cross_check")
+                if not cross_check:
+                    issues.append(
+                        f"key_levels entry {metric!r}: missing 'cross_check' "
+                        "(a second, independent source)"
+                    )
+                else:
+                    cc_dom = domain_of(cross_check.get("source", {}).get("url", ""))
+                    if cc_dom not in allowed_domains:
+                        issues.append(
+                            f"key_levels entry {metric!r}: cross_check source "
+                            f"domain {cc_dom!r} not on whitelist for {cat}"
+                        )
+                    elif cc_dom == dom:
+                        issues.append(
+                            f"key_levels entry {metric!r}: cross_check source "
+                            f"is the same domain ({dom!r}) as the primary "
+                            "source — not an independent check"
+                        )
+                    cmp_result = compare_cross_check(
+                        kl.get("value", ""), cross_check.get("value", ""),
+                        cc_tol_pct, cc_tol_pp,
+                    )
+                    if cmp_result is None:
+                        issues.append(
+                            f"key_levels entry {metric!r}: could not "
+                            "numerically compare value against cross_check "
+                            "value"
+                        )
+                    else:
+                        agrees, diff, kind = cmp_result
+                        if not agrees:
+                            unit = "pp" if kind == "pp" else "%"
+                            issues.append(
+                                f"key_levels entry {metric!r}: cross-check "
+                                f"disagreement — primary {kl.get('value')!r} "
+                                f"vs {cross_check.get('source', {}).get('name', '?')} "
+                                f"{cross_check.get('value')!r} "
+                                f"(diff {diff:.2f}{unit}, tolerance "
+                                f"{cc_tol_pp if kind == 'pp' else cc_tol_pct}{unit})"
+                            )
 
                 spec = watchlist_specs.get(metric)
                 if spec is not None:

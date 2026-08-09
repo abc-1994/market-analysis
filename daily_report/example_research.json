@@ -18,7 +18,14 @@
             "name": "Reuters",
             "url": "https://www.reuters.com/markets/us/treasury-yields-cpi-example"
           },
-          "as_of": "2026-08-08"
+          "as_of": "2026-08-08",
+          "cross_check": {
+            "source": {
+              "name": "Financial Times",
+              "url": "https://www.ft.com/content/treasury-yields-crosscheck"
+            },
+            "value": "4.03%"
+          }
         },
         {
           "metric": "US 10Y Treasury",
@@ -33,7 +40,14 @@
             "name": "Reuters",
             "url": "https://www.reuters.com/markets/us/treasury-yields-cpi-example"
           },
-          "as_of": "2026-08-08"
+          "as_of": "2026-08-08",
+          "cross_check": {
+            "source": {
+              "name": "Financial Times",
+              "url": "https://www.ft.com/content/treasury-yields-crosscheck"
+            },
+            "value": "4.29%"
+          }
         },
         {
           "metric": "US 30Y Treasury",
@@ -48,7 +62,14 @@
             "name": "Reuters",
             "url": "https://www.reuters.com/markets/us/treasury-yields-cpi-example"
           },
-          "as_of": "2026-08-08"
+          "as_of": "2026-08-08",
+          "cross_check": {
+            "source": {
+              "name": "Financial Times",
+              "url": "https://www.ft.com/content/treasury-yields-crosscheck"
+            },
+            "value": "4.52%"
+          }
         },
         {
           "metric": "Germany 10Y Bund",
@@ -63,7 +84,14 @@
             "name": "Financial Times",
             "url": "https://www.ft.com/content/bund-yields-example"
           },
-          "as_of": "2026-08-08"
+          "as_of": "2026-08-08",
+          "cross_check": {
+            "source": {
+              "name": "Reuters",
+              "url": "https://www.reuters.com/markets/europe/bund-yields-crosscheck"
+            },
+            "value": "2.52%"
+          }
         },
         {
           "metric": "UK 10Y Gilt",
@@ -78,7 +106,14 @@
             "name": "Financial Times",
             "url": "https://www.ft.com/content/gilt-yields-example"
           },
-          "as_of": "2026-08-08"
+          "as_of": "2026-08-08",
+          "cross_check": {
+            "source": {
+              "name": "Reuters",
+              "url": "https://www.reuters.com/markets/europe/gilt-yields-crosscheck"
+            },
+            "value": "4.64%"
+          }
         },
         {
           "metric": "Japan 10Y JGB",
@@ -93,7 +128,14 @@
             "name": "Reuters",
             "url": "https://www.reuters.com/markets/asia/jgb-yields-example"
           },
-          "as_of": "2026-08-08"
+          "as_of": "2026-08-08",
+          "cross_check": {
+            "source": {
+              "name": "Financial Times",
+              "url": "https://www.ft.com/content/jgb-yields-crosscheck"
+            },
+            "value": "1.09%"
+          }
         },
         {
           "metric": "China 10Y CGB",
@@ -108,7 +150,14 @@
             "name": "Reuters",
             "url": "https://www.reuters.com/markets/asia/china-bonds-example"
           },
-          "as_of": "2026-08-08"
+          "as_of": "2026-08-08",
+          "cross_check": {
+            "source": {
+              "name": "Financial Times",
+              "url": "https://www.ft.com/content/china-bonds-crosscheck"
+            },
+            "value": "1.71%"
+          }
         }
       ],
       "themes": [
@@ -170,7 +219,14 @@
             "name": "MarketWatch",
             "url": "https://www.marketwatch.com/story/stocks-close-lower-example"
           },
-          "as_of": "2026-08-08"
+          "as_of": "2026-08-08",
+          "cross_check": {
+            "source": {
+              "name": "Reuters",
+              "url": "https://www.reuters.com/markets/us/stocks-crosscheck"
+            },
+            "value": "5,841"
+          }
         },
         {
           "metric": "Nasdaq 100",
@@ -187,7 +243,14 @@
             "name": "MarketWatch",
             "url": "https://www.marketwatch.com/story/stocks-close-lower-example"
           },
-          "as_of": "2026-08-08"
+          "as_of": "2026-08-08",
+          "cross_check": {
+            "source": {
+              "name": "Reuters",
+              "url": "https://www.reuters.com/markets/us/stocks-crosscheck"
+            },
+            "value": "20,405"
+          }
         },
         {
           "metric": "MSCI ACWI IMI",
@@ -204,7 +267,14 @@
             "name": "Reuters",
             "url": "https://www.reuters.com/markets/global-stocks-example"
           },
-          "as_of": "2026-08-08"
+          "as_of": "2026-08-08",
+          "cross_check": {
+            "source": {
+              "name": "Financial Times",
+              "url": "https://www.ft.com/content/global-stocks-crosscheck"
+            },
+            "value": "812.1"
+          }
         },
         {
           "metric": "MSCI World",
@@ -221,7 +291,14 @@
             "name": "Reuters",
             "url": "https://www.reuters.com/markets/global-stocks-example"
           },
-          "as_of": "2026-08-08"
+          "as_of": "2026-08-08",
+          "cross_check": {
+            "source": {
+              "name": "Financial Times",
+              "url": "https://www.ft.com/content/global-stocks-crosscheck"
+            },
+            "value": "3,844.0"
+          }
         },
         {
           "metric": "MSCI Emerging Markets",
@@ -238,7 +315,14 @@
             "name": "Reuters",
             "url": "https://www.reuters.com/markets/emerging-stocks-example"
           },
-          "as_of": "2026-08-08"
+          "as_of": "2026-08-08",
+          "cross_check": {
+            "source": {
+              "name": "Financial Times",
+              "url": "https://www.ft.com/content/em-stocks-crosscheck"
+            },
+            "value": "1,142.9"
+          }
         },
         {
           "metric": "STOXX Europe 600",
@@ -255,7 +339,14 @@
             "name": "Financial Times",
             "url": "https://www.ft.com/content/europe-stocks-example"
           },
-          "as_of": "2026-08-08"
+          "as_of": "2026-08-08",
+          "cross_check": {
+            "source": {
+              "name": "Reuters",
+              "url": "https://www.reuters.com/markets/europe/stocks-crosscheck"
+            },
+            "value": "521.4"
+          }
         },
         {
           "metric": "FTSE 100",
@@ -272,7 +363,14 @@
             "name": "Financial Times",
             "url": "https://www.ft.com/content/ftse-close-example"
           },
-          "as_of": "2026-08-08"
+          "as_of": "2026-08-08",
+          "cross_check": {
+            "source": {
+              "name": "Reuters",
+              "url": "https://www.reuters.com/markets/europe/ftse-crosscheck"
+            },
+            "value": "8,309"
+          }
         },
         {
           "metric": "Nikkei 225",
@@ -289,7 +387,14 @@
             "name": "Reuters",
             "url": "https://www.reuters.com/markets/asia/nikkei-close-example"
           },
-          "as_of": "2026-08-08"
+          "as_of": "2026-08-08",
+          "cross_check": {
+            "source": {
+              "name": "Financial Times",
+              "url": "https://www.ft.com/content/nikkei-crosscheck"
+            },
+            "value": "39,890"
+          }
         },
         {
           "metric": "Hang Seng",
@@ -306,7 +411,14 @@
             "name": "Reuters",
             "url": "https://www.reuters.com/markets/asia/hang-seng-close-example"
           },
-          "as_of": "2026-08-08"
+          "as_of": "2026-08-08",
+          "cross_check": {
+            "source": {
+              "name": "Financial Times",
+              "url": "https://www.ft.com/content/hang-seng-crosscheck"
+            },
+            "value": "18,235"
+          }
         },
         {
           "metric": "CSI 300",
@@ -323,7 +435,14 @@
             "name": "Reuters",
             "url": "https://www.reuters.com/markets/asia/csi300-close-example"
           },
-          "as_of": "2026-08-08"
+          "as_of": "2026-08-08",
+          "cross_check": {
+            "source": {
+              "name": "Financial Times",
+              "url": "https://www.ft.com/content/csi300-crosscheck"
+            },
+            "value": "3,591"
+          }
         }
       ],
       "themes": [
@@ -430,7 +549,14 @@
             "name": "Reuters",
             "url": "https://www.reuters.com/markets/currencies/dollar-firms-example"
           },
-          "as_of": "2026-08-08"
+          "as_of": "2026-08-08",
+          "cross_check": {
+            "source": {
+              "name": "Financial Times",
+              "url": "https://www.ft.com/content/dollar-crosscheck"
+            },
+            "value": "104.28"
+          }
         },
         {
           "metric": "EUR/USD",
@@ -445,7 +571,14 @@
             "name": "Reuters",
             "url": "https://www.reuters.com/markets/currencies/dollar-firms-example"
           },
-          "as_of": "2026-08-08"
+          "as_of": "2026-08-08",
+          "cross_check": {
+            "source": {
+              "name": "Financial Times",
+              "url": "https://www.ft.com/content/eurusd-crosscheck"
+            },
+            "value": "1.0845"
+          }
         },
         {
           "metric": "USD/JPY",
@@ -460,7 +593,14 @@
             "name": "Reuters",
             "url": "https://www.reuters.com/markets/currencies/dollar-firms-example"
           },
-          "as_of": "2026-08-08"
+          "as_of": "2026-08-08",
+          "cross_check": {
+            "source": {
+              "name": "Financial Times",
+              "url": "https://www.ft.com/content/usdjpy-crosscheck"
+            },
+            "value": "152.25"
+          }
         },
         {
           "metric": "GBP/USD",
@@ -475,7 +615,14 @@
             "name": "Financial Times",
             "url": "https://www.ft.com/content/sterling-example"
           },
-          "as_of": "2026-08-08"
+          "as_of": "2026-08-08",
+          "cross_check": {
+            "source": {
+              "name": "Reuters",
+              "url": "https://www.reuters.com/markets/currencies/gbpusd-crosscheck"
+            },
+            "value": "1.2718"
+          }
         },
         {
           "metric": "USD/CNY",
@@ -490,7 +637,14 @@
             "name": "Reuters",
             "url": "https://www.reuters.com/markets/asia/yuan-example"
           },
-          "as_of": "2026-08-08"
+          "as_of": "2026-08-08",
+          "cross_check": {
+            "source": {
+              "name": "Financial Times",
+              "url": "https://www.ft.com/content/usdcny-crosscheck"
+            },
+            "value": "7.246"
+          }
         },
         {
           "metric": "USD/CHF",
@@ -505,7 +659,14 @@
             "name": "Reuters",
             "url": "https://www.reuters.com/markets/currencies/franc-example"
           },
-          "as_of": "2026-08-08"
+          "as_of": "2026-08-08",
+          "cross_check": {
+            "source": {
+              "name": "Financial Times",
+              "url": "https://www.ft.com/content/usdchf-crosscheck"
+            },
+            "value": "0.8819"
+          }
         },
         {
           "metric": "AUD/USD",
@@ -520,7 +681,14 @@
             "name": "Reuters",
             "url": "https://www.reuters.com/markets/currencies/aussie-example"
           },
-          "as_of": "2026-08-08"
+          "as_of": "2026-08-08",
+          "cross_check": {
+            "source": {
+              "name": "Financial Times",
+              "url": "https://www.ft.com/content/audusd-crosscheck"
+            },
+            "value": "0.6510"
+          }
         },
         {
           "metric": "Gold",
@@ -535,7 +703,14 @@
             "name": "Reuters",
             "url": "https://www.reuters.com/markets/commodities/gold-example"
           },
-          "as_of": "2026-08-08"
+          "as_of": "2026-08-08",
+          "cross_check": {
+            "source": {
+              "name": "Financial Times",
+              "url": "https://www.ft.com/content/gold-crosscheck"
+            },
+            "value": "$2,417"
+          }
         },
         {
           "metric": "WTI Crude",
@@ -550,7 +725,14 @@
             "name": "Reuters",
             "url": "https://www.reuters.com/markets/commodities/oil-example"
           },
-          "as_of": "2026-08-08"
+          "as_of": "2026-08-08",
+          "cross_check": {
+            "source": {
+              "name": "Financial Times",
+              "url": "https://www.ft.com/content/oil-crosscheck"
+            },
+            "value": "$74.85"
+          }
         },
         {
           "metric": "Brent Crude",
@@ -565,7 +747,14 @@
             "name": "Reuters",
             "url": "https://www.reuters.com/markets/commodities/oil-example"
           },
-          "as_of": "2026-08-08"
+          "as_of": "2026-08-08",
+          "cross_check": {
+            "source": {
+              "name": "Financial Times",
+              "url": "https://www.ft.com/content/oil-crosscheck"
+            },
+            "value": "$78.30"
+          }
         }
       ],
       "themes": [

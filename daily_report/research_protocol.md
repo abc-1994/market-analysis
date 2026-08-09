@@ -51,6 +51,21 @@ each day.
    the date of the article you found it in. This is what lets a stale or
    wrong-day figure be caught mechanically instead of trusted blindly.
 
+   **Every entry also needs a `cross_check`: look the same figure up on a
+   second, different whitelisted source** (different domain than the
+   primary one) and record what it shows. Don't reuse the same article or
+   the same outlet's data desk twice — the build script rejects a
+   same-domain "cross-check" as not independent. If the two sources
+   disagree beyond tolerance (`cross_check_tolerance_pct`/`_pp` in
+   `sources.yaml`), don't just average them or pick one arbitrarily:
+   check a third source, check whether one is stale/intraday vs.
+   close-of-day, or whether they're quoting a different series (price vs.
+   total return, spot vs. futures) — then use the figure you can actually
+   justify and, ideally, leave a `"note"` in the theme text if it's a
+   theme-relevant discrepancy. A disagreement that goes unresolved will
+   render as a visible "degraded coverage" flag, which is the intended
+   fallback, not a bug to suppress by fabricating agreement.
+
 4. **Identify the top 2-4 genuinely material themes** per category — not
    every headline. A theme belongs in the report if it plausibly affects
    portfolio positioning (rates moves, spread widening/tightening, major

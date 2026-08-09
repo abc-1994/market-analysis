@@ -13,9 +13,12 @@ rates/macro, equities, credit, private equity/credit, and FX/commodities.
 - **`build_report.py`** — mechanically validates the day's JSON against
   `sources.yaml` before rendering: every cited source's domain must be on
   the whitelist for its category, every theme needs at least one source,
-  every category needs at least one theme. Failures don't get silently
-  dropped or padded — the rendered report visibly flags the category as
-  "degraded coverage" with the specific reason.
+  every category needs at least one theme, and every `key_levels` figure
+  must be corroborated by a second, independent source (different domain)
+  that's numerically compared against the primary value — a real
+  disagreement gets flagged, not silently trusted. Failures don't get
+  silently dropped or padded — the rendered report visibly flags the
+  category as "degraded coverage" with the specific reason.
 - **Fixed template** — section order and layout never change day to day,
   so scanning is fast and any given day's structure is predictable.
 
@@ -56,11 +59,23 @@ research_protocol.md  →  reports/<date>.json  →  build_report.py  →  repor
       // before the report's date):
       // {"metric": "US 10Y Treasury", "value": "4.28%", "as_of": "2026-08-08", ...}
       //
+      // ...and "cross_check": a second value for the same metric from a
+      // DIFFERENT whitelisted domain than "source". build_report.py
+      // numerically compares value vs cross_check.value (percentage-quoted
+      // values compared in absolute pp, everything else as a relative %)
+      // and flags a disagreement beyond cross_check_tolerance_pct/pp in
+      // sources.yaml, or a cross_check from the same domain as the primary:
+      // {"metric": "US 10Y Treasury", "value": "4.28%", "as_of": "2026-08-08",
+      //  "source": {"name": "Reuters", "url": "..."},
+      //  "cross_check": {"source": {"name": "Financial Times", "url": "..."}, "value": "4.29%"},
+      //  ...}
+      //
       // equities key_levels additionally require "currency" and "hedged"
       // (see sources.yaml's equities.watchlist for the canonical value per
       // instrument — build_report.py rejects a mismatch):
       // {"metric": "MSCI Emerging Markets", "value": "1,142.7", "currency": "USD",
-      //  "hedged": false, "as_of": "2026-08-08", "returns": {...}, "source": {...}}
+      //  "hedged": false, "as_of": "2026-08-08", "returns": {...}, "source": {...},
+      //  "cross_check": {...}}
       "themes": [
         {
           "headline": "10Y yield rises 8bp on hot CPI print",
