@@ -4,6 +4,15 @@
   "sections": [
     {
       "category": "macro_rates",
+      "key_levels": [
+        {"metric": "US 2Y Treasury", "value": "4.02%", "change": "+5bp", "source": {"name": "Reuters", "url": "https://www.reuters.com/markets/us/treasury-yields-cpi-example"}},
+        {"metric": "US 10Y Treasury", "value": "4.28%", "change": "+8bp", "source": {"name": "Reuters", "url": "https://www.reuters.com/markets/us/treasury-yields-cpi-example"}},
+        {"metric": "US 30Y Treasury", "value": "4.51%", "change": "+6bp", "source": {"name": "Reuters", "url": "https://www.reuters.com/markets/us/treasury-yields-cpi-example"}},
+        {"metric": "Germany 10Y Bund", "value": "2.51%", "change": "+3bp", "source": {"name": "Financial Times", "url": "https://www.ft.com/content/bund-yields-example"}},
+        {"metric": "UK 10Y Gilt", "value": "4.63%", "change": "+4bp", "source": {"name": "Financial Times", "url": "https://www.ft.com/content/gilt-yields-example"}},
+        {"metric": "Japan 10Y JGB", "value": "1.08%", "change": "+1bp", "source": {"name": "Reuters", "url": "https://www.reuters.com/markets/asia/jgb-yields-example"}},
+        {"metric": "China 10Y CGB", "value": "1.72%", "change": "-2bp", "source": {"name": "Reuters", "url": "https://www.reuters.com/markets/asia/china-bonds-example"}}
+      ],
       "themes": [
         {
           "headline": "10Y Treasury yield rises 8bp on hotter-than-expected core CPI",
@@ -15,12 +24,31 @@
           "sources": [
             {"name": "Reuters", "url": "https://www.reuters.com/markets/us/treasury-yields-cpi-example", "published": "2026-08-08"}
           ]
+        },
+        {
+          "headline": "China 10Y yield edges lower as PBOC signals continued easing bias",
+          "summary": "Chinese sovereign yields ticked down after PBOC commentary reiterated support for growth amid soft property data. Divergence from the US/Europe rate path widens, a relevant cross-current for global rates exposure and any China-linked credit or equity allocations.",
+          "sources": [
+            {"name": "Reuters", "url": "https://www.reuters.com/markets/asia/china-bonds-example", "published": "2026-08-08"}
+          ]
         }
       ],
       "watch_today": ["8:30am jobless claims", "Fed speaker slate: two regional presidents"]
     },
     {
       "category": "equities",
+      "key_levels": [
+        {"metric": "S&P 500", "value": "5,842", "change": "-0.6%", "source": {"name": "MarketWatch", "url": "https://www.marketwatch.com/story/stocks-close-lower-example"}},
+        {"metric": "Nasdaq 100", "value": "20,410", "change": "-0.2%", "source": {"name": "MarketWatch", "url": "https://www.marketwatch.com/story/stocks-close-lower-example"}},
+        {"metric": "MSCI ACWI IMI", "value": "812.4", "change": "-0.4%", "source": {"name": "Reuters", "url": "https://www.reuters.com/markets/global-stocks-example"}},
+        {"metric": "MSCI World", "value": "3,845.1", "change": "-0.5%", "source": {"name": "Reuters", "url": "https://www.reuters.com/markets/global-stocks-example"}},
+        {"metric": "MSCI Emerging Markets", "value": "1,142.7", "change": "+0.3%", "source": {"name": "Reuters", "url": "https://www.reuters.com/markets/emerging-stocks-example"}},
+        {"metric": "STOXX Europe 600", "value": "521.6", "change": "-0.3%", "source": {"name": "Financial Times", "url": "https://www.ft.com/content/europe-stocks-example"}},
+        {"metric": "FTSE 100", "value": "8,312", "change": "-0.1%", "source": {"name": "Financial Times", "url": "https://www.ft.com/content/ftse-close-example"}},
+        {"metric": "Nikkei 225", "value": "39,904", "change": "+0.5%", "source": {"name": "Reuters", "url": "https://www.reuters.com/markets/asia/nikkei-close-example"}},
+        {"metric": "Hang Seng", "value": "18,220", "change": "+0.8%", "source": {"name": "Reuters", "url": "https://www.reuters.com/markets/asia/hang-seng-close-example"}},
+        {"metric": "CSI 300", "value": "3,588", "change": "+0.6%", "source": {"name": "Reuters", "url": "https://www.reuters.com/markets/asia/csi300-close-example"}}
+      ],
       "themes": [
         {
           "headline": "S&P 500 slips 0.6% as rate-sensitive sectors lag",
@@ -31,6 +59,13 @@
           ],
           "sources": [
             {"name": "MarketWatch", "url": "https://www.marketwatch.com/story/stocks-close-lower-example", "published": "2026-08-08"}
+          ]
+        },
+        {
+          "headline": "China equities outperform as CSI 300 and Hang Seng both rally on stimulus hopes",
+          "summary": "Mainland and Hong Kong-listed shares rose on renewed speculation of targeted property-sector support, decoupling from the softer tone in developed markets. EM equities broadly benefited, with MSCI EM the only major regional benchmark higher on the day.",
+          "sources": [
+            {"name": "Reuters", "url": "https://www.reuters.com/markets/asia/china-stocks-rally-example", "published": "2026-08-08"}
           ]
         }
       ],
@@ -68,10 +103,22 @@
     },
     {
       "category": "fx_commodities",
+      "key_levels": [
+        {"metric": "DXY (Dollar Index)", "value": "104.3", "change": "+0.4%", "source": {"name": "Reuters", "url": "https://www.reuters.com/markets/currencies/dollar-firms-example"}},
+        {"metric": "EUR/USD", "value": "1.0842", "change": "-0.4%", "source": {"name": "Reuters", "url": "https://www.reuters.com/markets/currencies/dollar-firms-example"}},
+        {"metric": "USD/JPY", "value": "152.30", "change": "+0.5%", "source": {"name": "Reuters", "url": "https://www.reuters.com/markets/currencies/dollar-firms-example"}},
+        {"metric": "GBP/USD", "value": "1.2715", "change": "-0.3%", "source": {"name": "Financial Times", "url": "https://www.ft.com/content/sterling-example"}},
+        {"metric": "USD/CNY", "value": "7.245", "change": "-0.1%", "source": {"name": "Reuters", "url": "https://www.reuters.com/markets/asia/yuan-example"}},
+        {"metric": "USD/CHF", "value": "0.8821", "change": "+0.2%", "source": {"name": "Reuters", "url": "https://www.reuters.com/markets/currencies/franc-example"}},
+        {"metric": "AUD/USD", "value": "0.6512", "change": "-0.2%", "source": {"name": "Reuters", "url": "https://www.reuters.com/markets/currencies/aussie-example"}},
+        {"metric": "Gold", "value": "$2,418", "change": "-0.3%", "source": {"name": "Reuters", "url": "https://www.reuters.com/markets/commodities/gold-example"}},
+        {"metric": "WTI Crude", "value": "$74.80", "change": "-0.1%", "source": {"name": "Reuters", "url": "https://www.reuters.com/markets/commodities/oil-example"}},
+        {"metric": "Brent Crude", "value": "$78.35", "change": "-0.1%", "source": {"name": "Reuters", "url": "https://www.reuters.com/markets/commodities/oil-example"}}
+      ],
       "themes": [
         {
           "headline": "Dollar firms broadly on CPI-driven rate repricing",
-          "summary": "DXY gained as markets pushed out cut expectations slightly; yen underperformed on the widening rate differential. Oil little changed ahead of tonight's inventory data.",
+          "summary": "DXY gained as markets pushed out cut expectations slightly; yen underperformed on the widening rate differential, pushing USD/JPY toward levels that have previously drawn intervention rhetoric. Oil little changed ahead of tonight's inventory data.",
           "levels": [
             {"metric": "DXY", "value": "104.3", "change": "+0.4%"},
             {"metric": "WTI Crude", "value": "$74.80", "change": "-0.1%"}

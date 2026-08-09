@@ -40,7 +40,7 @@ def validate(research, config):
     section_status = {}
     min_themes = config["checks"]["min_themes_per_category"]
     min_sources = config["checks"]["min_sources_per_theme"]
-    max_age_hours = config["checks"]["max_source_age_hours"]
+    min_watchlist_pct = config["checks"].get("min_watchlist_coverage_pct", 0)
 
     sections_by_cat = {s["category"]: s for s in research.get("sections", [])}
 
@@ -84,6 +84,24 @@ def validate(research, config):
                         f"theme {i+1}: source missing 'published' date"
                     )
 
+        watchlist = cat_cfg.get("watchlist")
+        if watchlist:
+            reported = {kl.get("metric") for kl in section.get("key_levels", [])}
+            missing = [m for m in watchlist if m not in reported]
+            coverage_pct = 100 * (len(watchlist) - len(missing)) / len(watchlist)
+            if coverage_pct < min_watchlist_pct:
+                issues.append(
+                    f"key_levels coverage {coverage_pct:.0f}% of watchlist "
+                    f"(< {min_watchlist_pct}%), missing: {missing}"
+                )
+            for kl in section.get("key_levels", []):
+                dom = domain_of(kl.get("source", {}).get("url", ""))
+                if dom not in allowed_domains:
+                    issues.append(
+                        f"key_levels entry {kl.get('metric')!r}: source "
+                        f"domain {dom!r} not on whitelist for {cat}"
+                    )
+
         status = "ok" if not issues else "degraded"
         section_status[cat] = {"status": status, "issues": issues}
         for issue in issues:
@@ -121,6 +139,22 @@ def render_theme(theme):
     </div>"""
 
 
+def render_key_levels(key_levels):
+    if not key_levels:
+        return ""
+    rows = "".join(
+        f"<tr><td>{html.escape(kl.get('metric',''))}</td>"
+        f"<td>{html.escape(kl.get('value',''))}</td>"
+        f"<td>{html.escape(kl.get('change',''))}</td></tr>"
+        for kl in key_levels
+    )
+    return f"""
+    <table class="levels key-levels">
+      <thead><tr><th>Metric</th><th>Level</th><th>Chg</th></tr></thead>
+      <tbody>{rows}</tbody>
+    </table>"""
+
+
 def render_section(cat, cat_cfg, section, status):
     label = cat_cfg["label"]
     badge = ""
@@ -140,6 +174,7 @@ def render_section(cat, cat_cfg, section, status):
           <p class="empty">No data available for this category today.</p>
         </section>"""
 
+    key_levels_html = render_key_levels(section.get("key_levels", []))
     themes_html = "".join(render_theme(t) for t in section.get("themes", []))
     watch = section.get("watch_today", [])
     watch_html = ""
@@ -151,6 +186,7 @@ def render_section(cat, cat_cfg, section, status):
     <section>
       <h2>{html.escape(label)}</h2>
       {badge}
+      {key_levels_html}
       {themes_html}
       {watch_html}
     </section>"""

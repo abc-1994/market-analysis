@@ -37,6 +37,14 @@ research_protocol.md  →  reports/<date>.json  →  build_report.py  →  repor
   "sections": [
     {
       "category": "macro_rates",   // must match a key in sources.yaml
+      "key_levels": [
+        // One entry per instrument in sources.yaml's watchlist for this
+        // category, best-effort (coverage is validated, not required 100%).
+        {"metric": "US 10Y Treasury", "value": "4.28%", "change": "+8bp",
+         "source": {"name": "Reuters", "url": "https://www.reuters.com/..."}},
+        {"metric": "Germany 10Y Bund", "value": "2.51%", "change": "+3bp",
+         "source": {"name": "Reuters", "url": "https://www.reuters.com/..."}}
+      ],
       "themes": [
         {
           "headline": "10Y yield rises 8bp on hot CPI print",
@@ -55,6 +63,13 @@ research_protocol.md  →  reports/<date>.json  →  build_report.py  →  repor
   ]
 }
 ```
+
+`key_levels` is the systematic daily levels board (drawn from each
+category's `watchlist` in `sources.yaml`) — always attempted regardless of
+whether that instrument is part of the day's narrative. `themes[].levels`
+is for numbers specific to a story. Coverage of the watchlist is validated
+(`checks.min_watchlist_coverage_pct`); thin coverage flags the section as
+degraded rather than failing silently.
 
 Category keys currently defined: `macro_rates`, `equities`, `credit`,
 `private_markets`, `fx_commodities`.

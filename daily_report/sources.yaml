@@ -13,16 +13,37 @@ categories:
         domain: "home.treasury.gov"
       - name: "FRED"
         domain: "fred.stlouisfed.org"
+      - name: "ECB"
+        domain: "ecb.europa.eu"
+      - name: "Bank of England"
+        domain: "bankofengland.co.uk"
+      - name: "Bank of Japan"
+        domain: "boj.or.jp"
+      - name: "People's Bank of China"
+        domain: "pbc.gov.cn"
       - name: "Reuters"
         domain: "reuters.com"
       - name: "Financial Times"
         domain: "ft.com"
+    # Sovereign curve points to report a level for every day, regardless of
+    # which curve is driving the day's theme. Best-effort — see
+    # checks.min_watchlist_coverage_pct.
+    watchlist:
+      - "US 2Y Treasury"
+      - "US 10Y Treasury"
+      - "US 30Y Treasury"
+      - "Germany 10Y Bund"
+      - "UK 10Y Gilt"
+      - "Japan 10Y JGB"
+      - "China 10Y CGB"
 
   equities:
     label: "Equities"
     sources:
       - name: "Reuters"
         domain: "reuters.com"
+      - name: "Financial Times"
+        domain: "ft.com"
       - name: "Bloomberg"
         domain: "bloomberg.com"
       - name: "WSJ"
@@ -31,6 +52,23 @@ categories:
         domain: "marketwatch.com"
       - name: "CNBC"
         domain: "cnbc.com"
+      - name: "MSCI"
+        domain: "msci.com"
+      - name: "FTSE Russell"
+        domain: "lseg.com"
+    # Broad, market-cap-weighted global/regional benchmarks reported daily,
+    # not just whichever index is in the day's headline.
+    watchlist:
+      - "MSCI ACWI IMI"
+      - "MSCI World"
+      - "MSCI Emerging Markets"
+      - "S&P 500"
+      - "Nasdaq 100"
+      - "STOXX Europe 600"
+      - "FTSE 100"
+      - "Nikkei 225"
+      - "Hang Seng"
+      - "CSI 300"
 
   credit:
     label: "Credit"
@@ -65,6 +103,17 @@ categories:
         domain: "ft.com"
       - name: "EIA"
         domain: "eia.gov"
+    watchlist:
+      - "DXY (Dollar Index)"
+      - "EUR/USD"
+      - "USD/JPY"
+      - "GBP/USD"
+      - "USD/CNY"
+      - "USD/CHF"
+      - "AUD/USD"
+      - "Gold"
+      - "WTI Crude"
+      - "Brent Crude"
 
 # Order the report sections render in. Must match category keys above.
 section_order:
@@ -79,3 +128,8 @@ checks:
   min_themes_per_category: 1
   min_sources_per_theme: 1
   max_source_age_hours: 36
+  # Fraction of a category's watchlist that must have a reported level
+  # before that category is flagged degraded for thin levels coverage.
+  # (credit/private_markets have no watchlist, so this only applies where
+  # sources.yaml defines one.)
+  min_watchlist_coverage_pct: 50

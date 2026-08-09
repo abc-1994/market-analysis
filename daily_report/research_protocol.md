@@ -22,13 +22,24 @@ each day.
    `sources.yaml`) of the report's run time. Discard anything older or
    undated.
 
-3. **Identify the top 2-4 genuinely material themes** per category — not
+3. **Fill the `key_levels` watchlist for the category first**, before
+   themes. `sources.yaml` lists the specific instruments each category
+   always reports a level for (e.g. macro_rates: US 2Y/10Y/30Y, Bund, Gilt,
+   JGB, China 10Y CGB; equities: MSCI ACWI IMI, MSCI World, MSCI EM, S&P
+   500, Nasdaq 100, STOXX 600, FTSE 100, Nikkei 225, Hang Seng, CSI 300;
+   fx_commodities: DXY, EUR/USD, USD/JPY, GBP/USD, USD/CNY, USD/CHF,
+   AUD/USD, gold, WTI, Brent). Get the latest available level + change for
+   as many as possible from whitelisted sources. Missing entries are fine
+   (coverage is validated, not required at 100%) but don't skip the pass —
+   thin coverage gets flagged in the report so it's visible, not silent.
+
+4. **Identify the top 2-4 genuinely material themes** per category — not
    every headline. A theme belongs in the report if it plausibly affects
    portfolio positioning (rates moves, spread widening/tightening, major
    index moves and why, PE/PC fundraising or valuation marks, dollar/oil/gold
    moves with a driver attached). Skip noise.
 
-4. **For each theme, capture (matching the JSON schema below):**
+5. **For each theme, capture (matching the JSON schema below):**
    - `headline` — one line, plain statement of what happened
    - `summary` — 2-4 sentences: what happened, why, and the read for a
      portfolio manager
@@ -38,22 +49,24 @@ each day.
      `name` and the URL's domain **must** match an entry in `sources.yaml`
      for that category, or the build script rejects it.
 
-5. **`watch_today`** per category — 1-3 short bullets on what to watch during
+6. **`watch_today`** per category — 1-3 short bullets on what to watch during
    the current session (data releases, auctions, earnings, Fed speakers).
 
-6. **Write the result to `daily_report/reports/<YYYY-MM-DD>.json`** matching
+7. **Write the result to `daily_report/reports/<YYYY-MM-DD>.json`** matching
    the schema in `README.md`. Do not hand-write HTML — the build script
    owns formatting.
 
-7. **Run the build/validate step:**
+8. **Run the build/validate step:**
    ```
    python3 daily_report/build_report.py daily_report/reports/<YYYY-MM-DD>.json
    ```
    This checks, per category: at least `min_themes_per_category` themes,
    every source domain on the whitelist, every source within
-   `max_source_age_hours`. Categories that fail are rendered with a visible
-   "degraded coverage" flag rather than silently dropped or padded with
-   stale/off-list content — never invent a theme to fill a quota.
+   `max_source_age_hours`, and `key_levels` watchlist coverage above
+   `min_watchlist_coverage_pct`. Categories that fail are rendered with a
+   visible "degraded coverage" flag rather than silently dropped or padded
+   with stale/off-list content — never invent a theme or a level to fill a
+   quota.
 
-8. **Publish** the rendered HTML (`daily_report/reports/<YYYY-MM-DD>.html`)
+9. **Publish** the rendered HTML (`daily_report/reports/<YYYY-MM-DD>.html`)
    as the artifact for the day.
