@@ -28,10 +28,13 @@ each day.
    JGB, China 10Y CGB; equities: MSCI ACWI IMI, MSCI World, MSCI EM, S&P
    500, Nasdaq 100, STOXX 600, FTSE 100, Nikkei 225, Hang Seng, CSI 300;
    fx_commodities: DXY, EUR/USD, USD/JPY, GBP/USD, USD/CNY, USD/CHF,
-   AUD/USD, gold, WTI, Brent). Get the latest available level + change for
-   as many as possible from whitelisted sources. Missing entries are fine
-   (coverage is validated, not required at 100%) but don't skip the pass —
-   thin coverage gets flagged in the report so it's visible, not silent.
+   AUD/USD, gold, WTI, Brent). For each, get the latest level plus **Daily,
+   WTD (week-to-date), MTD (month-to-date), and YTD (year-to-date) returns**
+   from whitelisted sources — for yields express each period as a bp change
+   in the yield level; for indices/FX/commodities express each as a %
+   change. Missing entries or periods are fine (coverage is validated, not
+   required at 100%) but don't skip the pass — thin coverage gets flagged
+   in the report so it's visible, not silent.
 
 4. **Identify the top 2-4 genuinely material themes** per category — not
    every headline. A theme belongs in the report if it plausibly affects

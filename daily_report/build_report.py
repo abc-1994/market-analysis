@@ -101,6 +101,15 @@ def validate(research, config):
                         f"key_levels entry {kl.get('metric')!r}: source "
                         f"domain {dom!r} not on whitelist for {cat}"
                     )
+                returns = kl.get("returns", {})
+                missing_periods = [
+                    p for p in ("daily", "wtd", "mtd", "ytd") if not returns.get(p)
+                ]
+                if missing_periods:
+                    issues.append(
+                        f"key_levels entry {kl.get('metric')!r}: missing "
+                        f"returns for {missing_periods}"
+                    )
 
         status = "ok" if not issues else "degraded"
         section_status[cat] = {"status": status, "issues": issues}
@@ -145,14 +154,19 @@ def render_key_levels(key_levels):
     rows = "".join(
         f"<tr><td>{html.escape(kl.get('metric',''))}</td>"
         f"<td>{html.escape(kl.get('value',''))}</td>"
-        f"<td>{html.escape(kl.get('change',''))}</td></tr>"
+        f"<td>{html.escape(kl.get('returns', {}).get('daily',''))}</td>"
+        f"<td>{html.escape(kl.get('returns', {}).get('wtd',''))}</td>"
+        f"<td>{html.escape(kl.get('returns', {}).get('mtd',''))}</td>"
+        f"<td>{html.escape(kl.get('returns', {}).get('ytd',''))}</td></tr>"
         for kl in key_levels
     )
     return f"""
+    <div class="table-scroll">
     <table class="levels key-levels">
-      <thead><tr><th>Metric</th><th>Level</th><th>Chg</th></tr></thead>
+      <thead><tr><th>Metric</th><th>Level</th><th>Daily</th><th>WTD</th><th>MTD</th><th>YTD</th></tr></thead>
       <tbody>{rows}</tbody>
-    </table>"""
+    </table>
+    </div>"""
 
 
 def render_section(cat, cat_cfg, section, status):
@@ -224,6 +238,7 @@ TEMPLATE = """<!doctype html>
   .sources a {{ color: var(--accent); text-decoration: none; }}
   table.levels {{ border-collapse: collapse; font-size: 0.85rem; margin: 0.5rem 0; font-family: -apple-system, sans-serif; }}
   table.levels th, table.levels td {{ border: 1px solid var(--border); padding: 0.25rem 0.6rem; text-align: left; }}
+  .table-scroll {{ overflow-x: auto; }}
   .watch {{ margin-top: 0.8rem; font-size: 0.9rem; background: color-mix(in srgb, var(--accent) 8%, transparent);
             border-left: 3px solid var(--accent); padding: 0.5rem 0.8rem; }}
   .degraded-badge {{ background: var(--warn-bg); border: 1px solid var(--warn-border); border-radius: 4px;

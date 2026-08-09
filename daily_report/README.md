@@ -40,9 +40,14 @@ research_protocol.md  →  reports/<date>.json  →  build_report.py  →  repor
       "key_levels": [
         // One entry per instrument in sources.yaml's watchlist for this
         // category, best-effort (coverage is validated, not required 100%).
-        {"metric": "US 10Y Treasury", "value": "4.28%", "change": "+8bp",
+        // "returns" is Daily/WTD/MTD/YTD change — for yields, express as
+        // bp change in the yield level over each period; for
+        // indices/FX/commodities, express as % change over each period.
+        {"metric": "US 10Y Treasury", "value": "4.28%",
+         "returns": {"daily": "+8bp", "wtd": "+11bp", "mtd": "-4bp", "ytd": "+22bp"},
          "source": {"name": "Reuters", "url": "https://www.reuters.com/..."}},
-        {"metric": "Germany 10Y Bund", "value": "2.51%", "change": "+3bp",
+        {"metric": "Germany 10Y Bund", "value": "2.51%",
+         "returns": {"daily": "+3bp", "wtd": "+6bp", "mtd": "-9bp", "ytd": "+14bp"},
          "source": {"name": "Reuters", "url": "https://www.reuters.com/..."}}
       ],
       "themes": [
@@ -66,8 +71,10 @@ research_protocol.md  →  reports/<date>.json  →  build_report.py  →  repor
 
 `key_levels` is the systematic daily levels board (drawn from each
 category's `watchlist` in `sources.yaml`) — always attempted regardless of
-whether that instrument is part of the day's narrative. `themes[].levels`
-is for numbers specific to a story. Coverage of the watchlist is validated
+whether that instrument is part of the day's narrative, and reported as
+Daily/WTD/MTD/YTD returns rather than a single day-change. `themes[].levels`
+is for numbers specific to a story. Coverage of the watchlist, and
+completeness of the four return periods per entry, are both validated
 (`checks.min_watchlist_coverage_pct`); thin coverage flags the section as
 degraded rather than failing silently.
 
