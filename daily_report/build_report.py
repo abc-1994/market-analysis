@@ -12,6 +12,7 @@ what a given morning's research turned up.
 import html
 import json
 import sys
+from datetime import date as date_cls
 from pathlib import Path
 from urllib.parse import urlparse
 
@@ -41,6 +42,12 @@ def validate(research, config):
     min_themes = config["checks"]["min_themes_per_category"]
     min_sources = config["checks"]["min_sources_per_theme"]
     min_watchlist_pct = config["checks"].get("min_watchlist_coverage_pct", 0)
+    max_as_of_age_days = config["checks"].get("max_as_of_age_days", 4)
+
+    try:
+        report_date = date_cls.fromisoformat(research.get("date", ""))
+    except ValueError:
+        report_date = None
 
     sections_by_cat = {s["category"]: s for s in research.get("sections", [])}
 
@@ -119,6 +126,35 @@ def validate(research, config):
                         f"key_levels entry {metric!r}: missing "
                         f"returns for {missing_periods}"
                     )
+
+                as_of = kl.get("as_of")
+                if not as_of:
+                    issues.append(
+                        f"key_levels entry {metric!r}: missing 'as_of' date"
+                    )
+                else:
+                    try:
+                        as_of_date = date_cls.fromisoformat(as_of)
+                        if report_date:
+                            age_days = (report_date - as_of_date).days
+                            if age_days < 0:
+                                issues.append(
+                                    f"key_levels entry {metric!r}: as_of "
+                                    f"{as_of} is after the report date "
+                                    f"{research.get('date')}"
+                                )
+                            elif age_days > max_as_of_age_days:
+                                issues.append(
+                                    f"key_levels entry {metric!r}: as_of "
+                                    f"{as_of} is {age_days} day(s) before "
+                                    f"the report date — stale (> "
+                                    f"{max_as_of_age_days} day threshold)"
+                                )
+                    except ValueError:
+                        issues.append(
+                            f"key_levels entry {metric!r}: as_of {as_of!r} "
+                            "is not a valid ISO date (YYYY-MM-DD)"
+                        )
 
                 spec = watchlist_specs.get(metric)
                 if spec is not None:
@@ -199,7 +235,6 @@ def render_key_levels(key_levels):
             return "Unhedged"
         return "—"  # em dash: not applicable
 
-    ccy_cols = ""
     ccy_headers = ""
     if show_ccy:
         ccy_headers = "<th>Ccy</th><th>Hedge</th>"
@@ -215,7 +250,8 @@ def render_key_levels(key_levels):
         + f"<td>{html.escape(kl.get('returns', {}).get('daily',''))}</td>"
         f"<td>{html.escape(kl.get('returns', {}).get('wtd',''))}</td>"
         f"<td>{html.escape(kl.get('returns', {}).get('mtd',''))}</td>"
-        f"<td>{html.escape(kl.get('returns', {}).get('ytd',''))}</td></tr>"
+        f"<td>{html.escape(kl.get('returns', {}).get('ytd',''))}</td>"
+        f"<td>{html.escape(kl.get('as_of',''))}</td></tr>"
         for kl in key_levels
     )
     note = (
@@ -229,7 +265,7 @@ def render_key_levels(key_levels):
     return f"""
     <div class="table-scroll">
     <table class="levels key-levels">
-      <thead><tr><th>Metric</th><th>Level</th>{ccy_headers}<th>Daily</th><th>WTD</th><th>MTD</th><th>YTD</th></tr></thead>
+      <thead><tr><th>Metric</th><th>Level</th>{ccy_headers}<th>Daily</th><th>WTD</th><th>MTD</th><th>YTD</th><th>As of</th></tr></thead>
       <tbody>{rows}</tbody>
     </table>
     </div>

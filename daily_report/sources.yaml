@@ -166,3 +166,9 @@ checks:
   # (credit/private_markets have no watchlist, so this only applies where
   # sources.yaml defines one.)
   min_watchlist_coverage_pct: 50
+  # Every key_levels entry must carry an "as_of" date (the date the level
+  # itself reflects, not when an article about it was published). Flagged
+  # stale if more than this many days before the report's date — kept
+  # generous (not 1) to tolerate weekends/holidays across different
+  # exchanges without false-flagging every Monday report.
+  max_as_of_age_days: 4

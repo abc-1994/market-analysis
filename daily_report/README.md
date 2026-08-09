@@ -50,11 +50,17 @@ research_protocol.md  →  reports/<date>.json  →  build_report.py  →  repor
          "returns": {"daily": "+3bp", "wtd": "+6bp", "mtd": "-9bp", "ytd": "+14bp"},
          "source": {"name": "Reuters", "url": "https://www.reuters.com/..."}}
       ],
+      // every key_levels entry also requires "as_of" (ISO date the level
+      // itself reflects — not when an article about it was published;
+      // build_report.py flags it stale if more than max_as_of_age_days
+      // before the report's date):
+      // {"metric": "US 10Y Treasury", "value": "4.28%", "as_of": "2026-08-08", ...}
+      //
       // equities key_levels additionally require "currency" and "hedged"
       // (see sources.yaml's equities.watchlist for the canonical value per
       // instrument — build_report.py rejects a mismatch):
       // {"metric": "MSCI Emerging Markets", "value": "1,142.7", "currency": "USD",
-      //  "hedged": false, "returns": {...}, "source": {...}}
+      //  "hedged": false, "as_of": "2026-08-08", "returns": {...}, "source": {...}}
       "themes": [
         {
           "headline": "10Y yield rises 8bp on hot CPI print",

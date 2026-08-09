@@ -46,6 +46,11 @@ each day.
    flagging it) is exactly the kind of silent inconsistency the validator
    is there to catch — don't work around it, get the right series.
 
+   **Every entry also needs `as_of`** — the ISO date (`YYYY-MM-DD`) the
+   level itself reflects (typically the prior trading day's close), not
+   the date of the article you found it in. This is what lets a stale or
+   wrong-day figure be caught mechanically instead of trusted blindly.
+
 4. **Identify the top 2-4 genuinely material themes** per category — not
    every headline. A theme belongs in the report if it plausibly affects
    portfolio positioning (rates moves, spread widening/tightening, major
